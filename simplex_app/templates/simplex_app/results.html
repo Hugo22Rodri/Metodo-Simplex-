@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados Simplex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'simplex_app/css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card shadow-lg mb-5">
+            <div class="card-header bg-success text-white">
+                <h1 class="text-center">Resultados del Método Simplex</h1>
+            </div>
+            
+            <!-- Resumen de resultados -->
+            <div class="card-body">
+                <div class="alert alert-{% if status == 'Óptimo' %}success{% else %}warning{% endif %}">
+                    <h3 class="alert-heading">Estado: {{ status }}</h3>
+                    {% if status == 'Óptimo' %}
+                    <p class="mb-0">
+                        Valor {% if problem_type == 'max' %}máximo{% else %}mínimo{% endif %} de Z: 
+                        <strong>{{ objective_value|floatformat:2 }}</strong>
+                    </p>
+                    {% endif %}
+                </div>
+                
+                {% if status == 'Óptimo' %}
+                <div class="mb-5">
+                    <h3 class="text-center mb-4">Solución Óptima</h3>
+                    <div class="row justify-content-center">
+                        {% for i in num_vars|make_range %}
+                        <div class="col-md-2 mb-3">
+                            <div class="card text-center">
+                                <div class="card-header">x{{ forloop.counter }}</div>
+                                <div class="card-body">
+                                    <p class="card-text fs-4">{{ solution|get_item:i|floatformat:2 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Pasos del simplex -->
+                <h3 class="text-center mb-4">Pasos Detallados del Método Simplex</h3>
+                <p class="text-center">Total de iteraciones: {{ iterations }}</p>
+                
+                {% for step in steps %}
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h4 class="mb-0">{{ step.message }}</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if step.entering is not None %}
+                        <p class="mb-3">
+                            Variable entrante: x{{ step.entering|add:1 }}, 
+                            Variable saliente: x{{ step.leaving|add:1 }}
+                        </p>
+                        {% endif %}
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Base</th>
+                                        {% for i in step.tableau.0|length|add:"-1"|make_range %}
+                                        <th>x{{ i|add:1 }}</th>
+                                        {% endfor %}
+                                        <th>Solución</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in step.tableau %}
+                                    <tr>
+                                        <th>
+                                            {% if forloop.counter0 < step.basic_vars|length %}
+                                            x{{ step.basic_vars|get_item:forloop.counter0|add:1 }}
+                                            {% else %}Z{% endif %}
+                                        </th>
+                                        {% for val in row %}
+                                        <td>{{ val|floatformat:2 }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="card-footer text-center">
+                <a href="{% url 'index' %}" class="btn btn-primary">Resolver otro problema</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
