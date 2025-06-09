@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from simplex_app import views
 
 app_name = 'simplex_app'
 

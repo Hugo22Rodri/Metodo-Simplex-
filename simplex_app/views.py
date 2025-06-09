@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ProblemForm, SolveForm
 from .algorithms.simplex import SimplexSolver
-import numpy as np
 
 def index(request):
     if request.method == 'POST':
@@ -10,7 +9,7 @@ def index(request):
             request.session['num_vars'] = form.cleaned_data['num_variables']
             request.session['num_cons'] = form.cleaned_data['num_constraints']
             request.session['problem_type'] = form.cleaned_data['problem_type']
-            return redirect('solve')
+            return redirect('simplex_app:solve')
     else:
         form = ProblemForm()
     return render(request, 'simplex_app/index.html', {'form': form})
@@ -64,4 +63,4 @@ def solve(request):
 
 def results(request):
     # Esta vista se maneja en la vista solve()
-    return redirect('index')
+    return redirect('simplex_app:index')

@@ -1,3 +1,4 @@
+{% load custom_filters %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -95,7 +96,7 @@
             </div>
             
             <div class="card-footer text-center">
-                <a href="{% url 'index' %}" class="btn btn-primary">Resolver otro problema</a>
+                <a href="{% url 'simplex_app:index' %}" class="btn btn-primary">Resolver otro problema</a>
             </div>
         </div>
     </div>
