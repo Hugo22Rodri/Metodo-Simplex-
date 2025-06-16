@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método Simplex - Optimización Lineal</title>
+    <link rel="stylesheet" href="{% static 'simplex_app/css/estilos.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor">
+        <header class="cabecera">
+            <h1>MÉTODO SIMPLEX</h1>
+            <p class="subtitulo">La herramienta fundamental para la optimización lineal</p>
+        </header>
+
+        <main class="contenido-principal">
+            <section class="seccion introduccion">
+                <h2>¿Qué es el Método Simplex?</h2>
+                <div class="contenido-seccion">
+                    <p>El método Simplex es un algoritmo eficiente para resolver problemas de programación lineal. Desarrollado por George Dantzig en 1947, es uno de los métodos numéricos más utilizados en la optimización matemática.</p>
+                    <div class="ilustracion">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Simplex-method-3-dimensions.png/800px-Simplex-method-3-dimensions.png" alt="Representación gráfica del método Simplex">
+                        <p class="pie-ilustracion">Representación gráfica del recorrido del método Simplex</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="seccion para-que-sirve">
+                <h2>¿Para qué sirve?</h2>
+                <div class="contenido-seccion">
+                    <ul class="lista-destacada">
+                        <li>Optimizar recursos limitados</li>
+                        <li>Maximizar beneficios o minimizar costos</li>
+                        <li>Resolver problemas con múltiples variables y restricciones</li>
+                        <li>Aplicaciones en logística, economía, ingeniería y más</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="seccion conceptos-clave">
+                <h2>Conceptos Clave</h2>
+                <div class="contenido-seccion">
+                    <div class="tarjetas">
+                        <div class="tarjeta">
+                            <h3>Función Objetivo</h3>
+                            <p>La función que queremos maximizar o minimizar</p>
+                        </div>
+                        <div class="tarjeta">
+                            <h3>Variables de Decisión</h3>
+                            <p>Las incógnitas que determinan la solución</p>
+                        </div>
+                        <div class="tarjeta">
+                            <h3>Restricciones</h3>
+                            <p>Limitaciones del problema expresadas como ecuaciones o inecuaciones</p>
+                        </div>
+                        <div class="tarjeta">
+                            <h3>Solución Factible</h3>
+                            <p>Punto que satisface todas las restricciones</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="seccion pasos">
+                <h2>Pasos del Método Simplex</h2>
+                <div class="contenido-seccion">
+                    <ol class="pasos-lista">
+                        <li>Convertir el problema a forma estándar</li>
+                        <li>Construir la tabla Simplex inicial</li>
+                        <li>Identificar la variable de entrada (columna pivote)</li>
+                        <li>Identificar la variable de salida (fila pivote)</li>
+                        <li>Calcular la nueva tabla Simplex</li>
+                        <li>Repetir hasta alcanzar la optimalidad</li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+
+        <footer class="pie-pagina">
+            <p>© 2023 Introducción al Método Simplex | Optimización Lineal</p>
+            <a href="{% url 'simplex_app:index' %}" target="_blank" class="boton-estilo">Hacer un calculo</a>
+        </footer>
+    </div>
+</body>
+</html>

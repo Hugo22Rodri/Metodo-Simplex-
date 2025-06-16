@@ -2,6 +2,13 @@ from django.shortcuts import render, redirect
 from .forms import ProblemForm, SolveForm
 from .algorithms.simplex import SimplexSolver
 
+def portada(request):
+    """
+    Vista para la portada de la aplicación Simplex.
+    Redirige a la página de inicio del problema.
+    """
+    return render(request, 'simplex_app/base.html')
+
 def index(request):
     if request.method == 'POST':
         form = ProblemForm(request.POST)
