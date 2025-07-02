@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Método Simplex - Optimización Lineal</title>
+    <button id="modo-toggle" class="modo-toggle" title="Cambiar modo de visualización">
+        <i class="fas fa-moon"></i>
+    </button>
     <link rel="stylesheet" href="{% static 'simplex_app/css/estilos.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -21,8 +25,7 @@
                 <div class="contenido-seccion">
                     <p>El método Simplex es un algoritmo eficiente para resolver problemas de programación lineal. Desarrollado por George Dantzig en 1947, es uno de los métodos numéricos más utilizados en la optimización matemática.</p>
                     <div class="ilustracion">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Simplex-method-3-dimensions.png/800px-Simplex-method-3-dimensions.png" alt="Representación gráfica del método Simplex">
-                        <p class="pie-ilustracion">Representación gráfica del recorrido del método Simplex</p>
+                        <img src="{% static 'simplex_app/img/sim.png' %}" alt="Representación gráfica del método Simplex">
                     </div>
                 </div>
             </section>
@@ -44,18 +47,22 @@
                 <div class="contenido-seccion">
                     <div class="tarjetas">
                         <div class="tarjeta">
+                            <img src="{% static 'simplex_app/img/objetivo.png' %}" alt="Función Objetivo" class="icono-tarjeta">
                             <h3>Función Objetivo</h3>
                             <p>La función que queremos maximizar o minimizar</p>
                         </div>
                         <div class="tarjeta">
+                            <img src="{% static 'simplex_app/img/variables.png' %}" alt="Variables de Decisión" class="icono-tarjeta">
                             <h3>Variables de Decisión</h3>
                             <p>Las incógnitas que determinan la solución</p>
                         </div>
                         <div class="tarjeta">
+                            <img src="{% static 'simplex_app/img/restricciones.png' %}" alt="Restricciones" class="icono-tarjeta">
                             <h3>Restricciones</h3>
                             <p>Limitaciones del problema expresadas como ecuaciones o inecuaciones</p>
                         </div>
                         <div class="tarjeta">
+                            <img src="{% static 'simplex_app/img/solucion.png' %}" alt="Solución Factible" class="icono-tarjeta">
                             <h3>Solución Factible</h3>
                             <p>Punto que satisface todas las restricciones</p>
                         </div>
@@ -79,9 +86,10 @@
         </main>
 
         <footer class="pie-pagina">
-            <p>© 2023 Introducción al Método Simplex | Optimización Lineal</p>
-            <a href="{% url 'simplex_app:index' %}" target="_blank" class="boton-estilo">Hacer un calculo</a>
+            <p>© 2025 Introducción al Método Simplex | Optimización Lineal</p>
+            <a href="{% url 'simplex_app:index' %}" class="boton-estilo">Ir a la App</a>
         </footer>
     </div>
+    <script src="{% static 'simplex_app/js/scripts.js' %}"></script>
 </body>
 </html>

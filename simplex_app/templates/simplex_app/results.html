@@ -17,7 +17,6 @@
                 <h1 class="text-center">Resultados del Método Simplex</h1>
             </div>
             
-            <!-- Resumen de resultados -->
             <div class="card-body">
                 <div class="alert alert-{% if status == 'Óptimo' %}success{% else %}warning{% endif %}">
                     <h3 class="alert-heading">Estado: {{ status }}</h3>
@@ -34,7 +33,7 @@
                     <h3 class="text-center mb-4">Solución Óptima</h3>
                     <div class="row justify-content-center">
                         {% for i in num_vars|make_range %}
-                        <div class="col-md-2 mb-3">
+                        <div class="col-6 col-md-2 mb-3"> {# Adjusted column sizes for better responsiveness #}
                             <div class="card text-center">
                                 <div class="card-header">x{{ forloop.counter }}</div>
                                 <div class="card-body">
@@ -47,7 +46,6 @@
                 </div>
                 {% endif %}
                 
-                <!-- Pasos del simplex -->
                 <h3 class="text-center mb-4">Pasos Detallados del Método Simplex</h3>
                 <p class="text-center">Total de iteraciones: {{ iterations }}</p>
                 
@@ -102,5 +100,16 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const numParticles = 60; // ajusta según quieras más o menos densidad
+
+      for (let i = 0; i < numParticles; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.top = `${Math.random() * window.innerHeight}px`;
+        p.style.left = `${Math.random() * window.innerWidth}px`;
+        document.body.appendChild(p);
+      }
+    </script>
 </body>
 </html>

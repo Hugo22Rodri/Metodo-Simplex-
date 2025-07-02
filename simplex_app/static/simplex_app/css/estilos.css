@@ -1,232 +1,285 @@
-/* Paleta de colores moderna */
 :root {
-  --color-primario: #2b3a67;       /* Azul marino */
-  --color-secundario: #4bbf73;     /* Verde jade */
-  --color-acento: #ff7f50;         /* Coral */
-  --color-fondo: #d1d9dee1;
-  --color-texto: #2e2e2e;
+  --fondo-principal: #0a0e17;
+  --fondo-tarjeta: #111827;
+  --color-texto: #e7e8f0;
+  --color-subtexto: #64748b;
+  --color-encabezado: #10c1dc; /* Neon Sky Blue */
+  --color-acento: #7c3aed;     /* Violet Pulse */
+  --color-brillo: #1172f0;     /* Mint Glow */
+  --borde-neon: 2px solid hsla(292, 88%, 6%, 0.912);
+
+  --fuente-principal: 'Bentoga', serif;
+  --fuente-titulo: 'Playfair Display', serif;
+
+  --radio-borde: 12px;
+  --sombra-futurista: 0 0 15px rgba(229, 224, 237, 0.4);
 }
 
-/* Estilos generales */
+/* Base */
 body {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 1.6;
-    color: var(--color-texto);
-    background-color: var(--color-fondo);
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
+  font-family: var(--fuente-principal);
+  background-color: var(--fondo-principal);
+  color: var(--color-texto);
+  line-height: 1.6;
+  padding: 2rem;
 }
 
-.contenedor {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.03;
+  z-index: 0;
+  pointer-events: none;
 }
-
-/* Cabecera animada */
-@keyframes moveGradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(124, 58, 237, 0.1));
+  opacity: 0.2;
+  z-index: -1;
 }
-
+/* Cabecera */
 .cabecera {
-    text-align: center;
-    padding: 30px 0;
-    background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
-    background-size: 300% 300%;
-    animation: moveGradient 10s ease infinite;
-    color: white;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .cabecera h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3.5rem;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-family: var(--fuente-titulo);
+  font-size: 2.8rem;
+  color: var(--color-encabezado);
+  text-transform: uppercase;
+  text-shadow: 0 0 6px var(--color-encabezado);
+  letter-spacing: 1.5px;
 }
 
 .subtitulo {
-    font-size: 1.5rem;
-    margin: 10px 0 0;
-    opacity: 0.9;
+  color: var(--color-subtexto);
+  font-style: italic;
 }
 
 /* Secciones */
-@keyframes fadeInUp {
-    0% { transform: translateY(30px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-}
-
 .seccion {
-    background-color: white;
-    border-radius: 8px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    animation: fadeInUp 0.6s ease forwards;
-    opacity: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--fondo-tarjeta);
+  border: var(--borde-neon);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-futurista);
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
 }
 
 .seccion:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transform: scale(1.01);
 }
 
 .seccion h2 {
-    color: var(--color-primario);
-    font-family: 'Montserrat', sans-serif;
-    border-bottom: 3px solid var(--color-secundario);
-    padding-bottom: 10px;
-    margin-top: 0;
-}
-
-/* Contenido */
-.contenido-seccion {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 30px;
-}
-
-.contenido-seccion p {
-    flex: 1;
-    min-width: 300px;
-}
-
-.ilustracion {
-    flex: 1;
-    min-width: 300px;
-    text-align: center;
-}
-
-.ilustracion img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.pie-ilustracion {
-    font-style: italic;
-    color: #666;
-    font-size: 0.9rem;
+  color: var(--color-brillo);
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.2rem;
 }
 
 /* Listas */
 .lista-destacada {
-    list-style-type: none;
-    padding: 0;
-    flex: 1;
-    min-width: 100%;
+  list-style: none;
+  padding: 0;
+}
+
+.lista-destacada li::before {
+  content: "◆";
+  color: var(--color-acento);
+  margin-right: 0.5rem;
 }
 
 .lista-destacada li {
-    background-color: #e6f9f0;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-left: 5px solid var(--color-secundario);
-    font-weight: bold;
-    border-radius: 0 5px 5px 0;
-}
-
-.pasos-lista {
-    padding-left: 20px;
-    flex: 1;
-    min-width: 100%;
-}
-
-.pasos-lista li {
-    margin-bottom: 15px;
-    padding-left: 10px;
-    position: relative;
-    font-weight: 500;
-}
-
-.pasos-lista li:before {
-    content: "→";
-    color: var(--color-primario);
-    font-weight: bold;
-    position: absolute;
-    left: -15px;
+  margin-bottom: 0.7rem;
 }
 
 /* Tarjetas */
 .tarjetas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .tarjeta {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    flex: 1;
-    min-width: 200px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    border-top: 4px solid var(--color-secundario);
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
+  background-color: #1f2937;
+  padding: 1.5rem;
+  border-radius: var(--radio-borde);
+  border-left: 4px solid var(--color-acento);
+  box-shadow: inset 0 0 8px rgba(124, 58, 237, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
 .tarjeta:hover {
-    transform: translateY(-5px) rotateY(3deg);
+  box-shadow: 0 0 12px var(--color-acento);
 }
 
 .tarjeta h3 {
-    color: var(--color-primario);
-    margin-top: 0;
+  color: var(--color-encabezado);
+  margin-bottom: 0.5rem;
 }
 
-/* Botón de acción */
-.boton-accion {
-    background-color: var(--color-acento);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(125, 23, 23, 0.921);
+/* Icono tarjeta */
+.icono-tarjeta {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 250px;      /* Ajusta el tamaño según prefieras */
+    height: 300px;
+    object-fit: contain;
 }
 
-.boton-accion:hover {
-    background-color: #ff623c;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+/* Pasos numerados */
+.pasos-lista {
+  list-style: none;
+  counter-reset: paso;
+  padding-left: 0;
 }
 
-/* Pie de página */
+.pasos-lista li {
+  counter-increment: paso;
+  position: relative;
+  padding-left: 50px;
+  margin-bottom: 1.2rem;
+}
+
+.pasos-lista li::before {
+  content: counter(paso);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(to bottom, var(--color-brillo), var(--color-acento));
+  color: #000;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 32px;
+  font-weight: bold;
+  box-shadow: 0 0 8px var(--color-brillo);
+}
+
+/* Ilustración */
+.ilustracion img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.pie-ilustracion {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-subtexto);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Botón */
+.boton-estilo {
+  display: inline-block;
+  background-color: var(--color-brillo);
+  color: #000;
+  padding: 12px 26px;
+  border-radius: 6px;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: background-color 0.3s, transform 0.2s;
+  text-decoration: none;
+  box-shadow: 0 0 12px var(--color-brillo);
+}
+
+.boton-estilo:hover {
+  background-color: var(--color-acento);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Footer */
 .pie-pagina {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--color-primario);
-    color: white;
-    border-radius: 10px;
-    margin-top: 30px;
+  text-align: center;
+  color: var(--color-subtexto);
+  font-size: 0.9rem;
+  border-top: 1px solid #2c2f36;
+  margin-top: 3rem;
+  padding-top: 1rem;
+}
+
+/* Modo toggle */
+.modo-toggle {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  background: var(--color-brillo);
+  color: #222;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--color-brillo);
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+  z-index: 10;
+}
+
+.modo-toggle:hover {
+  background: var(--color-acento);
+  color: #fff;
+  transform: scale(1.08);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .cabecera h1 {
-        font-size: 2.5rem;
-    }
+  .cabecera h1 {
+    font-size: 2rem;
+  }
 
-    .subtitulo {
-        font-size: 1.2rem;
-    }
+  .tarjetas {
+    grid-template-columns: 1fr;
+  }
+}
 
-    .contenido-seccion {
-        flex-direction: column;
-    }
+/* Animación de entrada */
+/* Scroll reveal animación */
+.seccion, .tarjeta, .pasos-lista ol {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Cursor digital */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Modo claro opcional */
+body.modo-claro {
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+body.modo-claro .seccion,
+body.modo-claro .tarjeta {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  box-shadow: none;
+}
+
+@keyframes fondoBrillante {
+  0% {
+    background-position: 0% 0%, 100% 100%;
+  }
+  100% {
+    background-position: 30% 30%, 70% 80%;
+  }
 }

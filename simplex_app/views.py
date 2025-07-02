@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ProblemForm, SolveForm
 from .algorithms.simplex import SimplexSolver
 
+
 def portada(request):
     """
     Vista para la portada de la aplicación Simplex.
@@ -17,10 +18,11 @@ def index(request):
             request.session['num_cons'] = form.cleaned_data['num_constraints']
             request.session['problem_type'] = form.cleaned_data['problem_type']
             return redirect('simplex_app:solve')
+        # Si el formulario no es válido, vuelve a mostrar el formulario con errores
+        return render(request, 'simplex_app/index.html', {'form': form})
     else:
         form = ProblemForm()
-    return render(request, 'simplex_app/index.html', {'form': form})
-
+        return render(request, 'simplex_app/index.html', {'form': form})
 def solve(request):
     num_vars = request.session.get('num_vars', 2)
     num_cons = request.session.get('num_cons', 2)
