@@ -8,4 +8,5 @@ urlpatterns = [
     path('inicio/', views.index, name='index'),          # Formulario inicial
     path('resolver/', views.solve, name='solve'),        # Ingreso de datos y resolución
     path('resultados/', views.results, name='results'),  # Redirección
+    path('exportar_pdf/', views.exportar_pdf, name='exportar_pdf'),  # Exportar solución a PDF
 ]

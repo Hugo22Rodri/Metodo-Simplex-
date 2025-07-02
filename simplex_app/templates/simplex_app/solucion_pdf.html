@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solución Simplex - PDF</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        h1 { color: #2c3e50; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background: #f5f5f5; }
+        .step-card { margin-bottom: 30px; border: 1px solid #bbb; border-radius: 8px; }
+        .step-header { background: #f0f0f0; padding: 10px; font-weight: bold; border-bottom: 1px solid #bbb; }
+        .step-body { padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Solución del Método Simplex</h1>
+    <p><strong>Fecha de resolución:</strong> {{ fecha }} </p>
+    <h2>Resultados</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Variable</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for variable, valor in resultados.items %}
+            <tr>
+                <td>{{ variable }}</td>
+                <td>{{ valor }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h2>Valor óptimo</h2>
+    <p><strong>{{ valor_optimo }}</strong></p>
+
+    <h2>Pasos Detallados del Método Simplex</h2>
+    <p>Total de iteraciones: {{ iteraciones }}</p>
+    {% for step in pasos %}
+    <div class="step-card">
+        <div class="step-header">{{ step.message }}</div>
+        <div class="step-body">
+            {% if step.entering is not None %}
+            <p>
+                Variable entrante: x{{ step.entering|add:1 }},
+                Variable saliente: x{{ step.leaving|add:1 }}
+            </p>
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Base</th>
+                        {% for nombre in nombres_vars %}
+                        <th>{{ nombre }}</th>
+                        {% endfor %}
+                        <th>Solución</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in step.tableau %}
+                    <tr>
+                        <th>
+                            {% if forloop.counter0 < step.basic_vars|length %}
+                                {{ nombres_vars|slice:step.basic_vars|slice:forloop.counter0|first }}
+                            {% else %}Z{% endif %}
+                        </th>
+                        {% for val in row %}
+                        <td>{{ val|floatformat:2 }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>

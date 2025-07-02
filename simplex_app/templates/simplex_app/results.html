@@ -29,6 +29,11 @@
                 </div>
                 
                 {% if status == 'Óptimo' %}
+                <div class="mb-3 text-center">
+                    <a href="{% url 'simplex_app:exportar_pdf' %}" target="_blank" class="btn btn-outline-danger">
+                        Exportar solución a PDF
+                    </a>
+                </div>
                 <div class="mb-5">
                     <h3 class="text-center mb-4">Solución Óptima</h3>
                     <div class="row justify-content-center">
@@ -61,14 +66,19 @@
                             Variable saliente: x{{ step.leaving|add:1 }}
                         </p>
                         {% endif %}
-                        
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Base</th>
                                         {% for i in step.tableau.0|length|add:"-1"|make_range %}
-                                        <th>x{{ i|add:1 }}</th>
+                                            <th>
+                                                {% if i < num_vars %}
+                                                    x{{ i|add:1 }}
+                                                {% else %}
+                                                    s{{ i|add:1|subtract:num_vars }}
+                                                {% endif %}
+                                            </th>
                                         {% endfor %}
                                         <th>Solución</th>
                                     </tr>
@@ -78,7 +88,13 @@
                                     <tr>
                                         <th>
                                             {% if forloop.counter0 < step.basic_vars|length %}
-                                            x{{ step.basic_vars|get_item:forloop.counter0|add:1 }}
+                                                {% with var_idx=step.basic_vars|slice:forloop.counter0|first %}
+                                                    {% if var_idx < num_vars %}
+                                                        x{{ var_idx|add:1 }}
+                                                    {% else %}
+                                                        s{{ var_idx|add:1|subtract:num_vars|add:1 }}
+                                                    {% endif %}
+                                                {% endwith %}
                                             {% else %}Z{% endif %}
                                         </th>
                                         {% for val in row %}
@@ -92,6 +108,13 @@
                     </div>
                 </div>
                 {% endfor %}
+                
+                {% if zona_factible_url %}
+                <div class="mb-5 text-center">
+                    <h4>Zona factible (solo para dos variables)</h4>
+                    <img src="{% static zona_factible_url %}" alt="Zona factible" class="img-fluid" style="max-width:500px; border:1px solid #ccc; background:#fff; padding:8px;">
+                </div>
+                {% endif %}
             </div>
             
             <div class="card-footer text-center">

@@ -50,14 +50,38 @@ class SimplexSolver:
             # Verificar optimalidad
             if np.all(self.tableau[-1, :-1] >= 0):
                 self.status = 'Óptimo'
+                self.steps.append({
+                    'tableau': self.tableau.copy(),
+                    'basic_vars': self.basic_vars.copy(),
+                    'iteration': self.iterations,
+                    'message': 'Solución óptima encontrada',
+                    'entering': None,
+                    'leaving': None
+                })
                 break
                 
             # Seleccionar variable entrante (más negativa en la fila objetivo)
             entering = np.argmin(self.tableau[-1, :-1])
+            self.steps.append({
+                'tableau': self.tableau.copy(),
+                'basic_vars': self.basic_vars.copy(),
+                'iteration': self.iterations,
+                'message': f'Selección de variable entrante: x{entering+1}',
+                'entering': entering,
+                'leaving': None
+            })
             
             # Verificar si el problema es no acotado
             if np.all(self.tableau[:-1, entering] <= 0):
                 self.status = 'No acotado'
+                self.steps.append({
+                    'tableau': self.tableau.copy(),
+                    'basic_vars': self.basic_vars.copy(),
+                    'iteration': self.iterations,
+                    'message': 'Problema no acotado',
+                    'entering': entering,
+                    'leaving': None
+                })
                 break
                 
             # Seleccionar variable saliente (mínimo ratio)
@@ -68,25 +92,56 @@ class SimplexSolver:
                 else:
                     ratios.append(float('inf'))
             leaving = np.argmin(ratios)
+            self.steps.append({
+                'tableau': self.tableau.copy(),
+                'basic_vars': self.basic_vars.copy(),
+                'iteration': self.iterations,
+                'message': f'Selección de variable saliente: x{self.basic_vars[leaving]+1}',
+                'entering': entering,
+                'leaving': self.basic_vars[leaving]
+            })
             
             # Actualizar variable básica
             self.basic_vars[leaving] = entering
+            self.steps.append({
+                'tableau': self.tableau.copy(),
+                'basic_vars': self.basic_vars.copy(),
+                'iteration': self.iterations,
+                'message': f'Actualización de variable básica: x{entering+1} entra, x{self.basic_vars[leaving]+1} sale',
+                'entering': entering,
+                'leaving': self.basic_vars[leaving]
+            })
             
             # Pivoteo
             pivot = self.tableau[leaving, entering]
             self.tableau[leaving, :] /= pivot
+            self.steps.append({
+                'tableau': self.tableau.copy(),
+                'basic_vars': self.basic_vars.copy(),
+                'iteration': self.iterations,
+                'message': f'Pivoteo en fila {leaving+1}, columna {entering+1}',
+                'entering': entering,
+                'leaving': self.basic_vars[leaving]
+            })
             for i in range(m + 1):
                 if i != leaving:
                     factor = self.tableau[i, entering]
                     self.tableau[i, :] -= factor * self.tableau[leaving, :]
-            
+                    self.steps.append({
+                        'tableau': self.tableau.copy(),
+                        'basic_vars': self.basic_vars.copy(),
+                        'iteration': self.iterations,
+                        'message': f'Eliminación en fila {i+1} usando fila pivote {leaving+1}',
+                        'entering': entering,
+                        'leaving': self.basic_vars[leaving]
+                    })
             self.steps.append({
                 'tableau': self.tableau.copy(),
                 'basic_vars': self.basic_vars.copy(),
                 'entering': entering,
-                'leaving': self.basic_vars[leaving] if leaving < len(self.basic_vars) else None,
+                'leaving': self.basic_vars[leaving],
                 'iteration': self.iterations,
-                'message': f'Iteración {self.iterations}'
+                'message': f'Iteración {self.iterations} completada'
             })
         
         # Obtener solución

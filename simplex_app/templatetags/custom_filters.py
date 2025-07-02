@@ -14,3 +14,11 @@ def get_item(lst, index):
         return lst[index]
     except (IndexError, TypeError):
         return None
+
+@register.filter
+def subtract(value, arg):
+    """Resta el valor arg a value (ambos convertidos a int). Si falla, devuelve 0."""
+    try:
+        return int(value) - int(arg)
+    except (ValueError, TypeError):
+        return 0
