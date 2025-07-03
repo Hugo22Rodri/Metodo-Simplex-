@@ -23,7 +23,8 @@
             <section class="seccion introduccion">
                 <h2>¿Qué es el Método Simplex?</h2>
                 <div class="contenido-seccion">
-                    <p>El método Simplex es un algoritmo eficiente para resolver problemas de programación lineal. Desarrollado por George Dantzig en 1947, es uno de los métodos numéricos más utilizados en la optimización matemática.</p>
+                    <p>El método Simplex es un algoritmo matemático diseñado para resolver problemas de programación lineal, es decir, 
+                    situaciones donde se busca maximizar o minimizar una función objetivo (como ganancias o costos) bajo ciertas restricciones lineales.</p>
                     <div class="ilustracion">
                         <img src="{% static 'simplex_app/img/sim.png' %}" alt="Representación gráfica del método Simplex">
                     </div>
@@ -71,7 +72,7 @@
             </section>
 
             <section class="seccion pasos">
-                <h2>Pasos del Método Simplex</h2>
+                <h2>Pasos del Método Simplex 👣</h2>
                 <div class="contenido-seccion">
                     <ol class="pasos-lista">
                         <li>Convertir el problema a forma estándar</li>
@@ -81,6 +82,80 @@
                         <li>Calcular la nueva tabla Simplex</li>
                         <li>Repetir hasta alcanzar la optimalidad</li>
                     </ol>
+                </div>
+            </section>
+
+            <section class="seccion historia-simplex">
+                <h2>Historia y Relevancia ⌛</h2>
+                <div class="contenido-seccion">
+                    <p>El <strong>método Simplex</strong> fue desarrollado por <strong>George Dantzig</strong> en 1947, revolucionando la resolución de problemas de optimización lineal. Antes del Simplex, los problemas de programación lineal eran resueltos manualmente y solo para casos muy pequeños. El Simplex permitió abordar problemas reales de gran escala en la industria, la economía y la investigación operativa.</p>
+                    <p>Hoy en día, el método Simplex es la base de muchos programas de optimización y se utiliza en áreas como:</p>
+                    <ul class="lista-destacada">
+                        <li>Planificación de la producción y asignación de recursos en fábricas</li>
+                        <li>Optimización de rutas de transporte y logística</li>
+                        <li>Gestión de carteras de inversión en finanzas</li>
+                        <li>Diseño de mezclas óptimas en la industria química y alimentaria</li>
+                        <li>Resolución de problemas de asignación y programación de tareas</li>
+                    </ul>
+                    <p>El Simplex ha sido tan influyente que la <strong>matemática computacional moderna</strong> y la <strong>investigación de operaciones</strong> no se entienden sin él. Su eficiencia y robustez lo han convertido en el estándar para la programación lineal a nivel mundial.</p>
+                </div>
+            </section>
+
+            <section class="seccion como-funciona">
+                <h2>🧠 ¿Cómo funciona?</h2>
+                <div class="contenido-seccion">
+                    <p>Imagina que tienes recursos limitados (como tiempo, dinero o materiales) y quieres usarlos de la mejor manera posible.</p>
+                    <p>El método Simplex parte de una solución inicial factible (aunque no óptima) y, mediante iteraciones, va mejorando esa solución.</p>
+                    <p>En cada paso, el algoritmo elige una variable que puede mejorar el resultado (<strong>variable de entrada</strong>) y otra que debe salir para mantener la factibilidad (<strong>variable de salida</strong>).</p>
+                    <p>Este proceso se repite hasta que ya no se puede mejorar más, lo que indica que se ha alcanzado la solución óptima.</p>
+                </div>
+            </section>
+
+            <section class="seccion donde-aplica">
+                <h2>🎯 ¿Dónde se aplica?</h2>
+                <div class="contenido-seccion">
+                    <ul class="lista-destacada">
+                        <li><strong>Economía y finanzas:</strong> para maximizar beneficios o minimizar costos.</li>
+                        <li><strong>Logística:</strong> distribución eficiente de recursos.</li>
+                        <li><strong>Producción:</strong> decidir qué productos fabricar y en qué cantidad.</li>
+                        <li><strong>Investigación de operaciones:</strong> análisis de decisiones complejas.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="seccion ejemplo-simplex">
+                <h2>🧩 Ejemplo sencillo</h2>
+                <div class="contenido-seccion">
+                    <p>Supón que una fábrica produce dos productos, A y B, y tiene recursos limitados. El objetivo es maximizar las ganancias. Las restricciones podrían ser:</p>
+                    <ul class="lista-destacada">
+                        <li>Tiempo disponible</li>
+                        <li>Materiales</li>
+                        <li>Mano de obra</li>
+                    </ul>
+                    <p>El método Simplex toma estas restricciones y la función de ganancias, y encuentra la combinación óptima de producción de A y B que da el mayor beneficio posible.</p>
+                </div>
+            </section>
+
+            <section class="seccion recursos">
+                <h2>Recursos Recomendados</h2>
+                <div class="contenido-seccion">
+                    <ul class="lista-destacada">
+                        <li><a href="https://youtu.be/hVjBn14xdMQ?si=uI7JMT6_bfttFVH0" target="_blank">Video: Método Simplex explicado (YouTube)</a></li>
+                    </ul>
+                    <p>Para profundizar más, puedes consultar libros clásicos como <em>"Introduction to Operations Research"</em> de Hillier y Lieberman, o <em>"Linear Programming and Network Flows"</em> de Bazaraa, Jarvis y Sherali.</p>
+                </div>
+            </section>
+
+            <section class="seccion faq">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="contenido-seccion">
+                    <ul class="lista-destacada">
+                        <li><strong>¿El método Simplex siempre encuentra la solución óptima?</strong><br> Sí, siempre que el problema sea factible (tenga al menos una solución que cumpla todas las restricciones) y acotado (la función objetivo no puede crecer indefinidamente).</li>
+                        <li><strong>¿Se puede usar para más de dos variables?</strong><br> Sí, el método Simplex es eficiente incluso para cientos o miles de variables y restricciones. De hecho, su principal ventaja es resolver problemas de gran escala que serían imposibles de abordar manualmente.</li>
+                        <li><strong>¿Qué sucede si el problema no tiene solución?</strong><br> El método detecta automáticamente si el problema es <strong>no factible</strong> (no hay ningún punto que cumpla todas las restricciones) o <strong>no acotado</strong> (la función objetivo puede crecer sin límite).</li>
+                        <li><strong>¿Dónde se usa en la vida real?</strong><br> En logística, producción, finanzas, transporte, agricultura, energía, telecomunicaciones y muchas otras áreas donde se busca optimizar recursos limitados.</li>
+                        <li><strong>¿El método Simplex es el único algoritmo para programación lineal?</strong><br> No, existen otros métodos como el método de los vértices extremos, el método de puntos interiores y algoritmos especializados para ciertos tipos de problemas, pero el Simplex sigue siendo el más utilizado por su claridad y eficiencia.</li>
+                    </ul>
                 </div>
             </section>
         </main>

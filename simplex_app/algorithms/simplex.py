@@ -24,19 +24,19 @@ class SimplexSolver:
         
     def solve(self):
         """Resuelve el problema de programación lineal."""
-        # Convertir minimización a maximización
+        # Si es minimización, convertir a maximización
         if self.problem_type == 'min':
             self.c = -self.c
         
-        # Agregar variables de holgura
+        # Construcción del tableau inicial (agrega variables de holgura)
         m, n = self.A.shape
         self.tableau = np.zeros((m + 1, n + m + 1))
-        self.tableau[:-1, :n] = self.A
-        self.tableau[:-1, n:n+m] = np.eye(m)
-        self.tableau[:-1, -1] = self.b
-        self.tableau[-1, :n] = -self.c
+        self.tableau[:-1, :n] = self.A  # Restricciones
+        self.tableau[:-1, n:n+m] = np.eye(m)  # Variables de holgura
+        self.tableau[:-1, -1] = self.b  # Lado derecho
+        self.tableau[-1, :n] = -self.c  # Fila objetivo
         
-        # Variables básicas (variables de holgura)
+        # Inicializar variables básicas (las de holgura)
         self.basic_vars = list(range(n, n + m))
         self.steps.append({
             'tableau': self.tableau.copy(),
@@ -47,7 +47,7 @@ class SimplexSolver:
         
         while True:
             self.iterations += 1
-            # Verificar optimalidad
+            # 1. Verificar optimalidad: ¿ya no hay coeficientes negativos en la fila objetivo?
             if np.all(self.tableau[-1, :-1] >= 0):
                 self.status = 'Óptimo'
                 self.steps.append({
@@ -60,7 +60,7 @@ class SimplexSolver:
                 })
                 break
                 
-            # Seleccionar variable entrante (más negativa en la fila objetivo)
+            # 2. Selección de variable entrante (la más negativa en la fila objetivo)
             entering = np.argmin(self.tableau[-1, :-1])
             self.steps.append({
                 'tableau': self.tableau.copy(),
@@ -71,7 +71,7 @@ class SimplexSolver:
                 'leaving': None
             })
             
-            # Verificar si el problema es no acotado
+            # 3. Verificar si el problema es no acotado (todas las entradas en la columna entrante son <= 0)
             if np.all(self.tableau[:-1, entering] <= 0):
                 self.status = 'No acotado'
                 self.steps.append({
@@ -84,7 +84,7 @@ class SimplexSolver:
                 })
                 break
                 
-            # Seleccionar variable saliente (mínimo ratio)
+            # 4. Selección de variable saliente (mínimo ratio positivo)
             ratios = []
             for i in range(m):
                 if self.tableau[i, entering] > 0:
@@ -101,7 +101,7 @@ class SimplexSolver:
                 'leaving': self.basic_vars[leaving]
             })
             
-            # Actualizar variable básica
+            # 5. Actualizar variable básica (entra la variable seleccionada, sale la saliente)
             self.basic_vars[leaving] = entering
             self.steps.append({
                 'tableau': self.tableau.copy(),
@@ -112,9 +112,9 @@ class SimplexSolver:
                 'leaving': self.basic_vars[leaving]
             })
             
-            # Pivoteo
+            # 6. Pivoteo: hacer 1 el pivote y 0 el resto de la columna
             pivot = self.tableau[leaving, entering]
-            self.tableau[leaving, :] /= pivot
+            self.tableau[leaving, :] /= pivot  # Normalizar fila pivote
             self.steps.append({
                 'tableau': self.tableau.copy(),
                 'basic_vars': self.basic_vars.copy(),
@@ -135,6 +135,7 @@ class SimplexSolver:
                         'entering': entering,
                         'leaving': self.basic_vars[leaving]
                     })
+            # 7. Fin de la iteración
             self.steps.append({
                 'tableau': self.tableau.copy(),
                 'basic_vars': self.basic_vars.copy(),
@@ -144,7 +145,7 @@ class SimplexSolver:
                 'message': f'Iteración {self.iterations} completada'
             })
         
-        # Obtener solución
+        # 8. Extraer la solución final
         self._extract_solution(n)
         return self.status, self.objective_value, self.solution, self.steps
     

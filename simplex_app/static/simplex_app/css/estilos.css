@@ -1,3 +1,6 @@
+/* Google Fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&display=swap');
+
 :root {
   --fondo-principal: #0a0e17;
   --fondo-tarjeta: #111827;
@@ -8,8 +11,8 @@
   --color-brillo: #1172f0;     /* Mint Glow */
   --borde-neon: 2px solid hsla(292, 88%, 6%, 0.912);
 
-  --fuente-principal: 'Bentoga', serif;
-  --fuente-titulo: 'Playfair Display', serif;
+  --fuente-principal: 'Inter', sans-serif;
+  --fuente-titulo: 'Merriweather', serif;
 
   --radio-borde: 12px;
   --sombra-futurista: 0 0 15px rgba(229, 224, 237, 0.4);
